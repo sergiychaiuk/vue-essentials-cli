@@ -1,35 +1,23 @@
 <template>
   <div id="app" class="container mt-5">
-    <checkout
+    <router-view
       :cart="cart"
       :cartTotal="cartTotal"
-      @delete="deleteItem"
-      @add="addItem"
-    ></checkout>
-    <products
       :products="products"
       :maximum.sync="maximum"
-      :cart="cart"
       :cartQty="cartQty"
-      :cartTotal="cartTotal"
       :sliderStatus="sliderStatus"
       @toggle="toggleSliderStatus"
       @delete="deleteItem"
       @add="addItem"
-    ></products>
+    ></router-view>
   </div>
 </template>
 
 <script>
-import Products from "./components/Products.vue";
-import Checkout from "./components/Checkout.vue";
-
 export default {
   name: "App",
-  components: {
-    Checkout,
-    Products,
-  },
+  components: {},
   data: function () {
     return {
       sliderStatus: false,
