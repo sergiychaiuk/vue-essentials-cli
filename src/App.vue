@@ -1,7 +1,11 @@
 <template>
   <div id="app" class="container mt-5">
     <h1>My Shop</h1>
-    <product-list :maximum="maximum" :products="products"></product-list>
+    <product-list
+      :maximum="maximum"
+      :products="products"
+      @add="addItem"
+    ></product-list>
   </div>
 </template>
 
@@ -14,7 +18,27 @@ export default {
     return {
       maximum: 99,
       products: null,
+      cart: [],
     };
+  },
+  methods: {
+    addItem: function (product) {
+      let whichProduct;
+      let existing = this.cart.filter(function (item, index) {
+        if (Number(item.product.id) === Number(product.id)) {
+          whichProduct = index;
+          return true;
+        } else {
+          return false;
+        }
+      });
+
+      if (existing.length) {
+        this.cart[whichProduct].qty++;
+      } else {
+        this.cart.push({ product: product, qty: 1 });
+      }
+    },
   },
   components: {
     ProductList,
